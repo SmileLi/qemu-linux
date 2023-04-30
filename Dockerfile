@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM --platform=linux/amd64 ubuntu:20.04
 
 COPY ./* /home/
 
@@ -16,7 +16,7 @@ deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe m
 deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse">/etc/apt/sources.list
 
 RUN cat /etc/apt/sources.list
-RUN apt update 
+RUN apt update
 RUN apt-get install -y wget \
     gcc \
     gcc-multilib \
@@ -29,7 +29,13 @@ RUN apt-get install -y wget \
     qemu-system-x86-64 \
     libncurses5-dev \
     vim \
-    cpio
+    cpio \
+    flex \
+    bison \
+    byacc \
+    build-essential \
+    libssl-dev \
+    libelf-dev
 
 WORKDIR /home
 RUN chmod +x ./linux.sh
