@@ -35,7 +35,9 @@ RUN apt-get install -y wget \
     byacc \
     build-essential \
     libssl-dev \
-    libelf-dev
+    libelf-dev \
+    sudo \
+    debootstrap
 
 WORKDIR /home
 RUN chmod +x ./linux.sh
@@ -50,3 +52,6 @@ RUN chmod +x ./initramfs.sh
 RUN chmod +x ./run.sh
 RUN chmod +x ./debug.sh
 RUN bash -c "./initramfs.sh"
+
+RUN chmod +x ./syzkaller.sh
+RUN bash -c "./syzkaller.sh"
