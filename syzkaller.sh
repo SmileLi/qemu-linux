@@ -2,14 +2,15 @@
 
 set -x
 
-LINUX_PATH=linux-4.9.301
+LINUX_PATH=linux-5.10.179
 
-git clone https://github.com/google/syzkaller.git
+#git clone https://github.com/google/syzkaller.git
 mkdir ${LINUX_PATH}/image
-cp ./syzkaller/tools/create-image.sh ${LINUX_PATH}/image/
+tar xvf syzkaller.tar.gz
+cp syzkaller/tools/create-image.sh ${LINUX_PATH}/image/
 
-sed 's|sudo .* debootstrap .*|\0 http://mirrors.ustc.edu.cn/debian|g' ./${LINUX_PATH}/image/create-image.sh
+sed -i 's|sudo .* debootstrap .*|\0 http://mirrors.ustc.edu.cn/debian|g' ${LINUX_PATH}/image/create-image.sh
 
 cd ${LINUX_PATH}/image
-./create-image.sh -d buster
+./create-image.sh
 cd -
